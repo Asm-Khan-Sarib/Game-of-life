@@ -1,3 +1,4 @@
+let intervalId
 let gen1_list = []
 let gen2_list = []
 const hight = 75
@@ -12,13 +13,7 @@ function create_gen_list() {
         }
     }
 }
-function change_gen_list() {
-    let input = [[5,1],[5,2],[6,1],[6,2],[5,11],[6,11],[7,11],[4,12],[8,12],[6,11],[3,13],[9,13],[3,14],[9,14],[6,15],[4,16],[8,16],[5,17],[6,17],[7,17],[6,18],
-                [3,21],[4,21],[5,21],[3,22],[4,22],[5,22],[2,23],[6,23],[1,25],[2,25],[6,25],[7,25],[3,35],[4,35],[3,36],[4,36]]
-    for(let i=0; i<input.length; i++){
-        gen1_list[input[i][0]][input[i][1]] = 1
-    }
-}
+
 function change_gen_color() {
     for (let i = 0; i < hight; i++) {
         for (let j = 0; j < width; j++) { // check all cells
@@ -78,26 +73,89 @@ function next_gen() {
     }
     draw_gen() // draw generation
 }
+function change_gen_list(input) {
+    clear_bord()
+    for(let i=0; i<input.length; i++){
+        gen1_list[input[i][0]][input[i][1]] = 1
+    }
+    draw_gen() // draw generation at view port
+}
+function clear_bord(){
+    for (let i = 0; i < hight; i++) {
+        for (let j = 0; j < width; j++) {
+            gen1_list[i][j] = 0
+            gen2_list[i][j] = 0
+        }
+    }
+}
 document.addEventListener('DOMContentLoaded', function () {
 
     let button = document.getElementById("start")
-    let intervalId
+    let warnning = document.getElementById("warnning")
 
-    create_gen_list() // make 2 empty generation at starting
-    change_gen_list() // for input gen
-    draw_gen() // draw generation at view port
+    let petern1 = document.getElementById("petern1")
+    let petern2 = document.getElementById("petern2")
+    let petern3 = document.getElementById("petern3")
+    let petern4 = document.getElementById("petern4")
+    let petern5 = document.getElementById("petern5")
+    let petern6 = document.getElementById("petern6")
+    
+
+    create_gen_list() // make 2 empty generation at starting // for input gen
+    
+    petern1.addEventListener('click', function (){
+        let input = [[5,1],[5,2],[6,1],[6,2],[5,11],[6,11],[7,11],[4,12],[8,12],[6,11],[3,13],[9,13],[3,14],[9,14],[6,15],[4,16],[8,16],[5,17],[6,17],[7,17],[6,18],
+                    [3,21],[4,21],[5,21],[3,22],[4,22],[5,22],[2,23],[6,23],[1,25],[2,25],[6,25],[7,25],[3,35],[4,35],[3,36],[4,36]]
+        change_gen_list(input)
+    })
+    petern2.addEventListener('click', function (){
+        let input = [[20,29],[22,29],[24,29],[26,29],[28,29], [19,30],[21,30],[23,30],[25,30],[27,30],[29,30], [20,31],[22,31],[24,31],[26,31],[28,31]]
+        change_gen_list(input)
+    })
+    petern3.addEventListener('click', function (){
+        let input = [[5,1],[5,2],[5,22],[2,23],[6,23],[6,1],[6,2],[5,11],[3,35],[4,35],[3,36],[4,36]]
+        change_gen_list(input)
+    })
+    petern4.addEventListener('click', function (){
+        let input = [[5,1],[5,2],[6,1],[6,2],[5,11],[6,11],[3,13],[9,13],[3,35],[4,35],[3,36],[4,36]]
+        change_gen_list(input)
+    })
+    petern5.addEventListener('click', function (){
+        let input = [[5,1],[5,2],[6,1],[5,21],[3,22],[4,22],[5,11],[3,35],[4,35],[3,36],[4,36]]
+        change_gen_list(input)
+    })
+    petern6.addEventListener('click', function (){
+        let input = [[4,21],[5,21],[3,22],[5,2],[6,1],[6,2],[5,11],[3,35],[4,35],[3,36],[4,36]]
+        change_gen_list(input)
+    })
     
     button.addEventListener('click', function () {
         if (intervalId) { // stop simulation
-            button.innerHTML = "Resume"
+            button.innerHTML = "Start"
+            warnning.innerHTML = "Select any patern to simulate"
+            petern1.disabled = false
+            petern2.disabled = false
+            petern3.disabled = false
+            petern4.disabled = false
+            petern5.disabled = false
+            petern6.disabled = false
+
             clearInterval(intervalId)
             intervalId = null
         } 
         else { // start simulation
             button.innerHTML = "Stop"
+            warnning.innerHTML = "Please Stop the simulation before changing patern"
+            petern1.disabled = true
+            petern2.disabled = true
+            petern3.disabled = true
+            petern4.disabled = true
+            petern5.disabled = true
+            petern6.disabled = true
+
             intervalId = setInterval(function () {
                 next_gen()
-            }, 100)
+            }, 150)
         }
     })
 

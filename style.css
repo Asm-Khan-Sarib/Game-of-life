@@ -36,3 +36,6 @@ button:hover {
     height: 60px;
     width: 100px;
 }
+#warnning{
+    font-size: .7em;
+}

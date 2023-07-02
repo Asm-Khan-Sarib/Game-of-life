@@ -1,0 +1,38 @@
+body{
+    text-align: center;
+    background-color: black;
+    color: aquamarine;
+}
+#headings{
+    margin: 0 auto;
+    font-size: 2em;
+}
+table{
+    margin: 0 auto;
+    padding: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1 px solid aquamarine;
+}
+td{
+    width: 2px;
+    height: 2px;
+    border: 1px solid white;
+}
+
+button {
+    background-color: rgba(255, 1, 1, 0.397);
+    height: 40px;
+    width: 100px;
+    color: aquamarine;
+    cursor: pointer;
+}
+button:hover {
+    background-color: rgba(255, 1, 1, 0.7);
+    
+}
+#start{
+    margin: 5px;
+    height: 60px;
+    width: 100px;
+}

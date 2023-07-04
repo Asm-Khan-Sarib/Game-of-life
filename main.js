@@ -73,91 +73,95 @@ function next_gen() {
     }
     draw_gen() // draw generation
 }
-function change_gen_list(input) {
+function input_generation(input) {
     clear_bord()
-    for(let i=0; i<input.length; i++){
-        gen1_list[input[i][0]][input[i][1]] = 1
-    }
-    draw_gen() // draw generation at view port
-}
-function clear_bord(){
+    // remove old generation
     for (let i = 0; i < hight; i++) {
         for (let j = 0; j < width; j++) {
             gen1_list[i][j] = 0
             gen2_list[i][j] = 0
         }
     }
+
+    for(let i=0; i<input.length; i++){
+        gen1_list[input[i][0]][input[i][1]] = 1
+    }
+    draw_gen() // draw new generation
+}
+function clear_bord(){
+    
 }
 document.addEventListener('DOMContentLoaded', function () {
 
     let button = document.getElementById("start")
     let warnning = document.getElementById("warnning")
 
-    let petern1 = document.getElementById("petern1")
-    let petern2 = document.getElementById("petern2")
-    let petern3 = document.getElementById("petern3")
-    let petern4 = document.getElementById("petern4")
-    let petern5 = document.getElementById("petern5")
-    let petern6 = document.getElementById("petern6")
+    let pattern1 = document.getElementById("pattern1")
+    let pattern2 = document.getElementById("pattern2")
+    let pattern3 = document.getElementById("pattern3")
+    let pattern4 = document.getElementById("pattern4")
+    let pattern5 = document.getElementById("pattern5")
+    let pattern6 = document.getElementById("pattern6")
     create_gen_list() // make 2 empty generation at starting // for input gen
     let input = [[30,30],[31,29],[31,30],[31,31],[32,28],[32,29],[33,26],[33,27],[33,28],[34,27]]
-    change_gen_list(input)
-    warnning.innerHTML = "Select any patern to simulate"
-    
-    petern1.addEventListener('click', function (){
+    // start with a sample input
+    input_generation(input)
+    warnning.innerHTML = "Select any pattern to simulate"
+    //input generation
+    pattern1.addEventListener('click', function (){
         let input = [[30,30],[31,29],[31,30],[31,31],[32,28],[32,29],[33,26],[33,27],[33,28],[34,27]]
-        change_gen_list(input)
+        input_generation(input)
     })
-    petern2.addEventListener('click', function (){
+    pattern2.addEventListener('click', function (){
         let input = [[30,31],[30,32],[30,33],[30,34],[31,31],[31,32],[31,33],[31,34],[31,36],[31,37],[31,38],[32,36],[32,37],[32,38],[34,36],[34,37],[34,38],[35,31],[35,32],[35,33],[35,34],[35,36],[35,37],[35,38],[36,31],[36,32],[36,33],[36,34]]
-        change_gen_list(input)
+        input_generation(input)
     })
-    petern3.addEventListener('click', function (){
+    pattern3.addEventListener('click', function (){
         let input = [[20,29],[22,29],[24,29],[26,29],[28,29], [19,30],[21,30],[23,30],[25,30],[27,30],[29,30], [20,31],[22,31],[24,31],[26,31],[28,31]]
-        change_gen_list(input)
+        input_generation(input)
     })
-    petern4.addEventListener('click', function (){
+    pattern4.addEventListener('click', function (){
         let input = [[24,22],[25,22],[26,22],[30,22],[31,22],[32,22], [22,24],[27,24],[29,24],[34,24],[22,25],[27,25],[29,25],[34,25],[22,26],[27,26],[29,26],[34,26], [24,27],[25,27],[26,27],[30,27],[31,27],[32,27],
             [24,29],[25,29],[26,29],[30,29],[31,29],[32,29], [22,30],[27,30],[29,30],[34,30],[22,31],[27,31],[29,31],[34,31],[22,32],[27,32],[29,32],[34,32], [24,34],[25,34],[26,34],[30,34],[31,34],[32,34]]
-        change_gen_list(input)
+        input_generation(input)
     })
-    petern5.addEventListener('click', function (){
+    pattern5.addEventListener('click', function (){
         let input = [[13,6],[13,7], [14,2],[14,3],[14,4],[14,5],[14,7],[14,8], [15,2],[15,3],[15,4],[15,5],[15,6],[15,7], [16,3],[16,4],[16,5],[16,6]]
-        change_gen_list(input)
+        input_generation(input)
     })
-    petern6.addEventListener('click', function (){
+    pattern6.addEventListener('click', function (){
         let input = [[5,1],[5,2],[6,1],[6,2],[5,11],[6,11],[7,11],[4,12],[8,12],[6,11],[3,13],[9,13],[3,14],[9,14],[6,15],[4,16],[8,16],[5,17],[6,17],[7,17],[6,18],
                     [3,21],[4,21],[5,21],[3,22],[4,22],[5,22],[2,23],[6,23],[1,25],[2,25],[6,25],[7,25],[3,35],[4,35],[3,36],[4,36]]
-        change_gen_list(input)
+        input_generation(input)
     })
     
     button.addEventListener('click', function () {
         if (intervalId) { // stop simulation
             button.innerHTML = "Start"
-            warnning.innerHTML = "Select any patern to simulate"
-            petern1.disabled = false
-            petern2.disabled = false
-            petern3.disabled = false
-            petern4.disabled = false
-            petern5.disabled = false
-            petern6.disabled = false
+            warnning.innerHTML = "Select any pattern to simulate"
+            pattern1.disabled = false
+            pattern2.disabled = false
+            pattern3.disabled = false
+            pattern4.disabled = false
+            pattern5.disabled = false
+            pattern6.disabled = false
 
             clearInterval(intervalId)
             intervalId = null
         } 
         else { // start simulation
             button.innerHTML = "Stop"
-            warnning.innerHTML = "Please Stop the simulation before changing patern"
-            petern1.disabled = true
-            petern2.disabled = true
-            petern3.disabled = true
-            petern4.disabled = true
-            petern5.disabled = true
-            petern6.disabled = true
+            warnning.innerHTML = "Please Stop the simulation before changing pattern"
+            pattern1.disabled = true
+            pattern2.disabled = true
+            pattern3.disabled = true
+            pattern4.disabled = true
+            pattern5.disabled = true
+            pattern6.disabled = true
 
             intervalId = setInterval(function () {
                 next_gen()
-            }, 200)
+            }, 300)
         }
     })
 
